@@ -3,7 +3,9 @@ from aws_cdk import aws_events as events
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as _lambda
 from aws_solutions_constructs.aws_eventbridge_lambda import (
-    EventbridgeToLambda, EventbridgeToLambdaProps)
+    EventbridgeToLambda,
+    EventbridgeToLambdaProps,
+)
 from constructs import Construct
 
 
