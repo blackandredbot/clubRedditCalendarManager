@@ -1,5 +1,6 @@
 from aws_cdk import Duration, RemovalPolicy, Stack
 from aws_cdk import aws_events as events
+from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as _lambda
 from aws_solutions_constructs.aws_eventbridge_lambda import (
     EventbridgeToLambda, EventbridgeToLambdaProps)
@@ -21,7 +22,7 @@ class ClubRedditCalendarManagerLambdaStack(Stack):
         )
 
         # The code that defines your stack goes here
-        EventbridgeToLambda(
+        calendar_function = EventbridgeToLambda(
             self,
             "update_calendar",
             lambda_function_props=_lambda.FunctionProps(
@@ -29,8 +30,13 @@ class ClubRedditCalendarManagerLambdaStack(Stack):
                 runtime=_lambda.Runtime.PYTHON_3_9,
                 handler="update_calendar.handler",
                 layers=[club_reddit_calendar_manager_layer],
+                timeout=Duration.minutes(1),
             ),
             event_rule_props=events.RuleProps(
                 schedule=events.Schedule.rate(Duration.minutes(5))
             ),
+        )
+
+        calendar_function.lambda_function.role.add_managed_policy(
+            iam.ManagedPolicy.from_aws_managed_policy_name("AmazonSSMFullAccess")
         )

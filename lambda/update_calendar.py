@@ -2,9 +2,9 @@ import json
 from datetime import datetime, timezone
 
 import boto3
-import requests
 import icalendar
 import pytz
+import requests
 
 # Global Variables
 schedule_url: str = "https://www.stanza.co/api/schedules/mls-dcunited/mls-dcunited.ics"
