@@ -33,7 +33,7 @@ class ClubRedditCalendarManagerLambdaStack(Stack):
                 timeout=Duration.minutes(1),
             ),
             event_rule_props=events.RuleProps(
-                schedule=events.Schedule.rate(Duration.minutes(5))
+                schedule=events.Schedule.rate(Duration.hours(18))
             ),
         )
 
