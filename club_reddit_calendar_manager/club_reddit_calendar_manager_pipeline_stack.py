@@ -1,5 +1,6 @@
 from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep
+from club_reddit_calendar_manager.club_reddit_calendar_manager_pipeline_stages import AppStage
 from constructs import Construct
 
 
@@ -24,3 +25,5 @@ class ClubRedditCalendarManagerPipelineStack(Stack):
                 ],
             ),
         )
+
+        pipeline.add_stage(AppStage(self, "ApplicationStage"))

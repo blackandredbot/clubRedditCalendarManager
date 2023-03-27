@@ -3,9 +3,9 @@ import os
 
 import aws_cdk as cdk
 
-from club_reddit_calendar_manager import (
-    ClubRedditCalendarManagerLambdaStack,
-    ClubRedditCalendarManagerPipelineStack)
+from club_reddit_calendar_manager.club_reddit_calendar_manager_pipeline_stack import (
+    ClubRedditCalendarManagerPipelineStack,
+)
 
 app = cdk.App()
 default_env = cdk.Environment(account="363951782376", region="us-east-1")
@@ -23,12 +23,6 @@ ClubRedditCalendarManagerPipelineStack(
     # want to deploy the stack to. */
     env=default_env,
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
-)
-
-ClubRedditCalendarManagerLambdaStack(
-    app,
-    "ClubRedditCalendarManagerLambdaStack",
-    env=default_env,
 )
 
 app.synth()

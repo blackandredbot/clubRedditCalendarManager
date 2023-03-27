@@ -1,8 +1,9 @@
 import aws_cdk as core
 import aws_cdk.assertions as assertions
 
-from club_reddit_calendar_manager.club_reddit_calendar_manager_pipeline_stack import \
-    ClubRedditCalendarManagerPipelineStack
+from club_reddit_calendar_manager.club_reddit_calendar_manager_pipeline_stack import (
+    ClubRedditCalendarManagerPipelineStack,
+)
 
 
 # example tests. To run these tests, uncomment this file along with the example
