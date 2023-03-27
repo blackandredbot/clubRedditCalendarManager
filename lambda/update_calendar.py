@@ -97,7 +97,7 @@ def delete_existing_change_calendar(cal_name: str = None) -> requests.Response:
 def create_change_calendar(
     cal_name: str = None, cal_content: str = None
 ) -> requests.Response:
-    session = boto3.session.Session(profile_name="rdcu")
+    session = boto3.session.Session()
     client = session.client("ssm", region_name="us-east-1")
 
     return client.create_document(
