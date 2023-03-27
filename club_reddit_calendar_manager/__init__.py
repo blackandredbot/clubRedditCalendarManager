@@ -2,5 +2,5 @@ from club_reddit_calendar_manager.club_reddit_calendar_manager_lambda_stack impo
     ClubRedditCalendarManagerLambdaStack,
 )
 from club_reddit_calendar_manager.club_reddit_calendar_manager_pipeline_stack import (
-    ClubRedditCalendarManagerPipelineStack,
+    ClubRedditCalendarManagerStack,
 )

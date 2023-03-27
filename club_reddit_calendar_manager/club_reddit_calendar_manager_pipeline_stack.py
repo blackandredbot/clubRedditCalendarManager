@@ -4,7 +4,7 @@ from club_reddit_calendar_manager.club_reddit_calendar_manager_pipeline_stages i
 from constructs import Construct
 
 
-class ClubRedditCalendarManagerPipelineStack(Stack):
+class ClubRedditCalendarManagerStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
