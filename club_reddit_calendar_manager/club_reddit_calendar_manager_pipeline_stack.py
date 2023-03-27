@@ -1,13 +1,9 @@
-from aws_cdk import (
-    # Duration,
-    Stack,
-    # aws_sqs as sqs,
-)
-from constructs import Construct
+from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep
+from constructs import Construct
 
 
-class ClubRedditCalendarManagerStack(Stack):
+class ClubRedditCalendarManagerPipelineStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -18,7 +14,9 @@ class ClubRedditCalendarManagerStack(Stack):
             pipeline_name="CalendarManager",
             synth=ShellStep(
                 "Synth",
-                input=CodePipelineSource.git_hub("blackandredbot/clubRedditCalendarManager", "mainline"),
+                input=CodePipelineSource.git_hub(
+                    "blackandredbot/clubRedditCalendarManager", "mainline"
+                ),
                 commands=[
                     "npm install -g aws-cdk",
                     "python -m pip install -r requirements.txt",
@@ -26,11 +24,3 @@ class ClubRedditCalendarManagerStack(Stack):
                 ],
             ),
         )
-
-        # The code that defines your stack goes here
-
-        # example resource
-        # queue = sqs.Queue(
-        #     self, "ClubRedditCalendarManagerQueue",
-        #     visibility_timeout=Duration.seconds(300),
-        # )

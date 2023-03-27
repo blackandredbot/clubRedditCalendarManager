@@ -3,15 +3,16 @@ import os
 
 import aws_cdk as cdk
 
-from club_reddit_calendar_manager.club_reddit_calendar_manager_stack import (
-    ClubRedditCalendarManagerStack,
-)
-
+from club_reddit_calendar_manager import (
+    ClubRedditCalendarManagerLambdaStack,
+    ClubRedditCalendarManagerPipelineStack)
 
 app = cdk.App()
-ClubRedditCalendarManagerStack(
+default_env = cdk.Environment(account="363951782376", region="us-east-1")
+
+ClubRedditCalendarManagerPipelineStack(
     app,
-    "ClubRedditCalendarManagerStack",
+    "ClubRedditCalendarManagerPipelineStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
@@ -20,8 +21,14 @@ ClubRedditCalendarManagerStack(
     # env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),
     # Uncomment the next line if you know exactly what Account and Region you
     # want to deploy the stack to. */
-    env=cdk.Environment(account='363951782376', region='us-east-1'),
+    env=default_env,
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
+)
+
+ClubRedditCalendarManagerLambdaStack(
+    app,
+    "ClubRedditCalendarManagerLambdaStack",
+    env=default_env,
 )
 
 app.synth()
