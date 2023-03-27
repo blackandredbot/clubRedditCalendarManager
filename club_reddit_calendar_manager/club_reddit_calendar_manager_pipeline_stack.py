@@ -22,6 +22,8 @@ class ClubRedditCalendarManagerStack(Stack):
                     "npm install -g aws-cdk",
                     "python -m pip install -r requirements.txt",
                     "cdk synth",
+                    "python3 -m pip install -r lambda/update_calendar_reqs.txt -t ./lambda_layer",
+                    "zip -r lambda/club_reddit_calendar_manager_layer.zip ./lambda_layer/"
                 ],
             ),
         )
