@@ -1,7 +1,9 @@
 from aws_cdk import Stack  # Duration,; aws_sqs as sqs,
 from aws_cdk.pipelines import CodePipeline, CodePipelineSource, ShellStep
-from club_reddit_calendar_manager.club_reddit_calendar_manager_pipeline_stages import AppStage
 from constructs import Construct
+
+from club_reddit_calendar_manager.club_reddit_calendar_manager_pipeline_stages import \
+    AppStage
 
 
 class ClubRedditCalendarManagerStack(Stack):
@@ -20,10 +22,10 @@ class ClubRedditCalendarManagerStack(Stack):
                 ),
                 commands=[
                     "npm install -g aws-cdk",
+                    "python3 -m pip install -r lambda/update_calendar_reqs.txt -t ./lambda_layer",
+                    "zip -r lambda/club_reddit_calendar_manager_layer.zip ./lambda_layer/",
                     "python -m pip install -r requirements.txt",
                     "cdk synth",
-                    "python3 -m pip install -r lambda/update_calendar_reqs.txt -t ./lambda_layer",
-                    "zip -r lambda/club_reddit_calendar_manager_layer.zip ./lambda_layer/"
                 ],
             ),
         )
