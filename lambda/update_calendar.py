@@ -3,14 +3,15 @@ from datetime import datetime, timezone
 
 import boto3
 import requests
-from icalendar import Calendar
+import icalendar
+import pytz
 
 # Global Variables
 schedule_url: str = "https://www.stanza.co/api/schedules/mls-dcunited/mls-dcunited.ics"
 calendar_name = "DC-United-Schedule"
 
 
-def get_ics_calendar(url: str = None) -> Calendar:
+def get_ics_calendar(url: str = None) -> icalendar.Calendar:
     """
 
     Parameters
@@ -23,10 +24,11 @@ def get_ics_calendar(url: str = None) -> Calendar:
 
     """
     response = requests.get(url)
-    return Calendar(response.text)
+    cal = icalendar.Calendar.from_ical(response.text)
+    return cal
 
 
-def build_ssm_calendar(source_calendar: Calendar = Calendar()) -> str:
+def build_ssm_calendar(source_calendar: icalendar.Calendar = None) -> str:
     """
 
     Parameters
@@ -39,7 +41,7 @@ def build_ssm_calendar(source_calendar: Calendar = Calendar()) -> str:
     """
 
     # Initialize a new calendar for SSM Change Calendar
-    cal = Calendar()
+    cal = icalendar.Calendar()
     cal.add("X-WR-CALDESC", f"A {calendar_name} Systems Manager Change Calendar")
     cal.add("X-CALENDAR-CMEVENTS", "ENABLED")
     cal.add("X-CALENDAR-TYPE", "DEFAULT_CLOSED")
@@ -95,7 +97,7 @@ def delete_existing_change_calendar(cal_name: str = None) -> requests.Response:
 def create_change_calendar(
     cal_name: str = None, cal_content: str = None
 ) -> requests.Response:
-    session = boto3.session.Session()
+    session = boto3.session.Session(profile_name="rdcu")
     client = session.client("ssm", region_name="us-east-1")
 
     return client.create_document(
